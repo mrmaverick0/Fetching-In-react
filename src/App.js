@@ -2,12 +2,18 @@ import React, { useState } from "react";
 
 import MoviesList from "./components/MoviesList";
 import "./App.css";
+import { useEffect } from "react";
+import { useCallback } from "react";
 
 function App() {
   const [movie, setMovie] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  async function fetchMovies() {
+  useEffect(()=>{
+    fetchMovies()
+  },[fetchMovies])
+
+   const fetchMovies =useCallback(async()=> {
     setIsLoading(true);
     setError(null);
     try {
@@ -30,7 +36,7 @@ function App() {
       setError(error.message);
     }
     setIsLoading(false);
-  }
+  },[])
 
   return (
     <React.Fragment>
